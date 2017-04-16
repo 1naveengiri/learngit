@@ -1,0 +1,17 @@
+language: php
+php:
+- 5.5
+
+before_script:
+- pear install pear/PHP_CodeSniffer
+- git clone git://github.com/wimg/PHPCompatibility.git $(pear config-get php_dir)/PHP/CodeSniffer/Standards/PHPCompatibility
+- phpenv rehash
+- phpcs -i
+- phpenv rehash
+- phpcs --config-set error_severity 1
+- phpcs --config-set warning_severity 8
+
+script:
+- phpcs --standard=PSR2
+- if find . -name "*.php" ! -path "./node_modules/*" -exec php -l {} 2>&1 \; | grep
+  "syntax error, unexpected"; then exit 1; fi
