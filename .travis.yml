@@ -12,6 +12,5 @@ before_script:
 - phpcs --config-set warning_severity 8
 
 script:
-- phpcs --standard=PSR2
-- if find . -name "*.php" ! -path "./node_modules/*" -exec php -l {} 2>&1 \; | grep
-  "syntax error, unexpected"; then exit 1; fi
+- phpcs --standard=PSR2  $(find ./ -name
+  '*.php')
